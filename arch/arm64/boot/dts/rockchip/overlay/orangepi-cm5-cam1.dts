@@ -55,6 +55,10 @@
 			imx219-1@10 {
 				status = "okay";
 			};
+			imx415-1@37 {
+				status = "okay";
+			};
+
 		};
 	};
 };
