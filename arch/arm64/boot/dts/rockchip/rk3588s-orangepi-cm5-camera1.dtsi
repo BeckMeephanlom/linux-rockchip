@@ -9,7 +9,7 @@
 };
 
 &csi2_dphy1 {
-	status = "disabled";
+	status = "okay";
 	ports {
 		#address-cells = <1>;
 		#size-cells = <0>;
@@ -48,7 +48,7 @@
 	pinctrl-0 = <&i2c4m3_xfer>;
 
 	ov5647_1: ov5647-1@36 {
-		status = "disabled";
+		status = "okay";
 		compatible = "ovti,ov5647";
 		reg = <0x36>;
 		clocks = <&ext_cam_ov5647_clk>;
@@ -87,7 +87,7 @@
 };
 
 &mipi2_csi2 {
-	status = "disabled";
+	status = "okay";
 	ports {
 		#address-cells = <1>;
 		#size-cells = <0>;
@@ -113,7 +113,7 @@
 };
 
 &rkcif_mipi_lvds2 {
-	status = "disabled";
+	status = "okay";
 	port {
 		cif_mipi_in2: endpoint {
 			remote-endpoint = <&mipi2_csi2_output>;
@@ -122,7 +122,7 @@
 };
 
 &rkcif_mipi_lvds2_sditf {
-	status = "disabled";
+	status = "okay";
 	port {
 		mipi2_lvds_sditf: endpoint {
 			remote-endpoint = <&isp0_vir0>;
@@ -131,7 +131,7 @@
 };
 
 &rkisp0_vir0 {
-	status = "disabled";
+	status = "okay";
 	port {
 		#address-cells = <1>;
 		#size-cells = <0>;
