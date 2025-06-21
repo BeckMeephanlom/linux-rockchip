@@ -106,7 +106,8 @@
 		pinctrl-0 = <&mipim0_camera1_clk>;
 		power-domains = <&power RK3588_PD_VI>;
 		pwdn-gpios = <&gpio1 RK_PD0 GPIO_ACTIVE_LOW>;
-		//reset-gpios = <&gpio1 RK_PD0 GPIO_ACTIVE_LOW>;   		//not avaialbe for OPi CM5
+		reset-gpios = <..>;   					//not avaialbe for OPi CM5
+
 		rockchip,camera-module-index = <0>;
 		rockchip,camera-module-facing = "back";
 		rockchip,camera-module-name = "WaveShare-IMX415";
