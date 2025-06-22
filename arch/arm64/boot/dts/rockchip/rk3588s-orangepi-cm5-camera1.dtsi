@@ -55,7 +55,7 @@
 	pinctrl-0 = <&i2c4m3_xfer>;
 
 	ov5647_1: ov5647-1@36 {
-		status = "okay";
+		status = "disabled";
 		compatible = "ovti,ov5647";
 		reg = <0x36>;
 		clocks = <&ext_cam_ov5647_clk>;
