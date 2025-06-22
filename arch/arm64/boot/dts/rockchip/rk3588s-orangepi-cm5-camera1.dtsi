@@ -51,11 +51,11 @@
 
 &i2c4 {
 	status = "okay";
+	pinctrl-names = "default";
+	pinctrl-0 = <&i2c4m3_xfer>;
 
 	ov5647_1: ov5647-1@36 {
 		status = "okay";
-		pinctrl-names = "default";
-		pinctrl-0 = <&i2c4m3_xfer>;
 		compatible = "ovti,ov5647";
 		reg = <0x36>;
 		clocks = <&ext_cam_ov5647_clk>;
@@ -75,8 +75,6 @@
 
 	imx219_1: imx219-1@10 {
 		status = "disabled";
-		pinctrl-names = "default";
-		pinctrl-0 = <&i2c4m3_xfer>;
 		compatible = "sony,imx219";
 		reg = <0x10>;
 		clocks = <&ext_cam_ov5647_clk>;
