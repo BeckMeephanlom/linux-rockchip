@@ -80,9 +80,9 @@
 /* TODO: Get the real chip id from reg */
 //#define CHIP_ID				0xE0
 //#define IMX415_REG_CHIP_ID		0x311A
-#define IMX415_REG_CHIP_ID_HIGH  0x311A
-#define IMX415_REG_CHIP_ID_LOW   0x311B
-#define IMX415_CHIP_ID           0x0415
+#define IMX415_REG_CHIP_ID_HIGH  	0x311A
+#define IMX415_REG_CHIP_ID_LOW   	0x311B
+#define IMX415_CHIP_ID           	0xE000
 
 #define IMX415_REG_CTRL_MODE		0x3000
 #define IMX415_MODE_SW_STANDBY		BIT(0)
