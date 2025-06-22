@@ -78,8 +78,11 @@
 #define IMX415_XVCLK_FREQ_27M		27000000
 
 /* TODO: Get the real chip id from reg */
-#define CHIP_ID				0xE0
-#define IMX415_REG_CHIP_ID		0x311A
+//#define CHIP_ID				0xE0
+//#define IMX415_REG_CHIP_ID		0x311A
+#define IMX415_REG_CHIP_ID_HIGH  0x311A
+#define IMX415_REG_CHIP_ID_LOW   0x311B
+#define IMX415_CHIP_ID           0x0415
 
 #define IMX415_REG_CTRL_MODE		0x3000
 #define IMX415_MODE_SW_STANDBY		BIT(0)
@@ -2901,6 +2904,7 @@ static int imx415_check_sensor_id(struct imx415 *imx415,
 				  struct i2c_client *client)
 {
 	struct device *dev = &imx415->client->dev;
+	u32 id_high = 0, id_low = 0;
 	u32 id = 0;
 	int ret;
 
@@ -2909,17 +2913,28 @@ static int imx415_check_sensor_id(struct imx415 *imx415,
 		return 0;
 	}
 
-	ret = imx415_read_reg(client, IMX415_REG_CHIP_ID,
-			      IMX415_REG_VALUE_08BIT, &id);
-	if (id != CHIP_ID) {
-		dev_err(dev, "Unexpected sensor id(%06x), ret(%d)\n", id, ret);
+	ret = imx415_read_reg(client, IMX415_REG_CHIP_ID_HIGH,
+			      IMX415_REG_VALUE_08BIT, &id_high);
+	if (ret)
+		return ret;
+
+	ret = imx415_read_reg(client, IMX415_REG_CHIP_ID_LOW,
+			      IMX415_REG_VALUE_08BIT, &id_low);
+	if (ret)
+		return ret;
+
+	id = (id_high << 8) | id_low;
+
+	if (id != IMX415_CHIP_ID) {
+		dev_err(dev, "Unexpected sensor id(0x%04x), expected 0x%04x, ret(%d)\n",
+			id, IMX415_CHIP_ID, ret);
 		return -ENODEV;
 	}
 
-	dev_info(dev, "Detected imx415 id %06x\n", CHIP_ID);
-
+	dev_info(dev, "Detected IMX415 sensor, ID = 0x%04x\n", id);
 	return 0;
 }
+
 
 static int imx415_configure_regulators(struct imx415 *imx415)
 {
