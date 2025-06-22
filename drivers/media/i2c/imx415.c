@@ -77,7 +77,7 @@
 #define IMX415_XVCLK_FREQ_37M		37125000
 #define IMX415_XVCLK_FREQ_27M		27000000
 
-/* TODO: Get the real chip id from reg */
+/* there was no ID for this chip using clock reset to make Artificial ID: sensor has no fixed chip ID register; bypass check*/
 //#define CHIP_ID				0xE0
 //#define IMX415_REG_CHIP_ID		0x311A
 #define IMX415_REG_CHIP_ID_HIGH  	0x311A
