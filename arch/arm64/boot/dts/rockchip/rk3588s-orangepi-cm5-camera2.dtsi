@@ -9,7 +9,7 @@
 };
 
 &csi2_dphy2 {
-	status = "disabled";
+	status = "okay";
 	ports {
 		#address-cells = <1>;
 		#size-cells = <0>;
