@@ -769,12 +769,12 @@ static __maybe_unused const struct regval imx415_hdr2_12bit_1932x1096_891M_regs[
  * 891Mbps
  * Master Mode
  * Time 9.988ms Gain:6dB
- * All-pixel
+ * All-pixel 0x3021, 0x00h default = 0
  */
 static __maybe_unused const struct regval imx415_linear_12bit_3864x2192_891M_regs_2lane[] = {			
-	{0x3008, 0x5D},					//BC_Wait time according to page 80 27MHz
+	{0x3008, 0x5D},					//BC_Wait time according to page 80 27MHz    page54 all pixel mode
 	{0x300A, 0x42},					//CP_Wait time according to page 80 27MHz
-	{0x3033, 0x05},					//SyncMode Output  0 = 3767MBps, 5= 891Mbps
+	{0x3033, 0x05},					//SyncMode Output  05h= 891Mbps@15fps   02h = @2079Mbps@30fps 
 	{0x3115, 0x00},					//INCLKSEL1   default 0
  	{0x3116, 0x23},					//INCLKSEL2	
 	{0x3118, 0xC6},					//INCLKSEL3
@@ -785,27 +785,29 @@ static __maybe_unused const struct regval imx415_linear_12bit_3864x2192_891M_reg
 	{0x400C, 0x00},					//INCLKSEL6
 	{0x4074, 0x01},					//INCLKSEL7
 	{0x3028, 0x98},					//Hmax_Lowbyte	
-	{0x3029, 0x08},					//Mmax_Highbyte	   = 2200H    Vmax default 2250	
+	{0x3029, 0x08},					//Mmax_Highbyte	   0898C = @891Mbps@15fps, 044ch = @2079Mbps@30fps 
+	{0x3031, 0x01},					//ADBIT Default 1h = 12 bits, 0h = 10 bits
+	{0x3032, 0x01},					//MDBIT Default 1h = 12 bits, 0h = 10 bits
 	{0x3050, 0x79},					//SHR0_Lowbyte
 	{0x3051, 0x07},					//SHR0_Highbyte    = 1913
 	{0x3090, 0x14},					//Gain PGC_0 0-72 dB
 	{0x30C1, 0x00},					//Window mode 0 = pixel , 2 = 2/2 line binding, 4 = cropping mode	
 	{0x32D4, 0x21},					//Recommended to Set to this
 	{0x32EC, 0xA1},					//Recommended to Set to this
-	{0x344C, 0x2B},					
-	{0x344D, 0x01},
-	{0x344E, 0xED},
-	{0x344F, 0x01},
-	{0x3450, 0xF6},
-	{0x3451, 0x02},
+	{0x344C, 0x2B},					//Recommended to Set to this
+	{0x344D, 0x01},					//Recommended to Set to this
+	{0x344E, 0xED},					//Recommended to Set to this
+	{0x344F, 0x01},					//Recommended to Set to this
+	{0x3450, 0xF6},					//Recommended to Set to this
+	{0x3451, 0x02},					//Recommended to Set to this
 	{0x3452, 0x7F},					//Recommended to Set to this
 	{0x3453, 0x03},					//Recommended to Set to this
 	{0x358A, 0x04},					//Recommended to Set to this
 	{0x35A1, 0x02},					//Recommended to Set to this
-	{0x35EC, 0x27},
-	{0x35EE, 0x8D},
-	{0x35F0, 0x8D},
-	{0x35F2, 0x29},
+	{0x35EC, 0x27},					//Recommended to Set to this
+	{0x35EE, 0x8D},					//Recommended to Set to this
+	{0x35F0, 0x8D},					//Recommended to Set to this
+	{0x35F2, 0x29},					//Recommended to Set to this
 	{0x36BC, 0x0C},					//Recommended to Set to this				
 	{0x36CC, 0x53},					//Recommended to Set to this
 	{0x36CD, 0x00},					//Recommended to Set to this
@@ -819,7 +821,7 @@ static __maybe_unused const struct regval imx415_linear_12bit_3864x2192_891M_reg
 	{0x36D8, 0x71},					//Recommended to Set to this
 	{0x36DA, 0x8C},					//Recommended to Set to this
 	{0x36DB, 0x00},					//Recommended to Set to this
-	{0x3720, 0x00},
+	{0x3720, 0x00},					//Recommended to Set to this
 	{0x3724, 0x02},					//Recommended to Set to this
 	{0x3726, 0x02},					//Recommended to Set to this
 	{0x3732, 0x02},					//Recommended to Set to this
@@ -830,23 +832,23 @@ static __maybe_unused const struct regval imx415_linear_12bit_3864x2192_891M_reg
 	{0x38CC, 0x30},					//Recommended to Set to this
 	{0x38CD, 0x2F},					//Recommended to Set to this
 	{0x395C, 0x0C},					//Recommended to Set to this
-	{0x39A4, 0x07},
-	{0x39A8, 0x32},
-	{0x39AA, 0x32},
-	{0x39AC, 0x32},
-	{0x39AE, 0x32},
-	{0x39B0, 0x32},
-	{0x39B2, 0x2F},
-	{0x39B4, 0x2D},
-	{0x39B6, 0x28},
-	{0x39B8, 0x30},
-	{0x39BA, 0x30},
-	{0x39BC, 0x30},
-	{0x39BE, 0x30},
-	{0x39C0, 0x30},
-	{0x39C2, 0x2E},
-	{0x39C4, 0x2B},
-	{0x39C6, 0x25},
+	{0x39A4, 0x07},					//Recommended to Set to this
+	{0x39A8, 0x32},					//Recommended to Set to this
+	{0x39AA, 0x32},					//Recommended to Set to this	
+	{0x39AC, 0x32},					//Recommended to Set to this
+	{0x39AE, 0x32},					//Recommended to Set to this
+	{0x39B0, 0x32},					//Recommended to Set to this
+	{0x39B2, 0x2F},					//Recommended to Set to this
+	{0x39B4, 0x2D},					//Recommended to Set to this
+	{0x39B6, 0x28},					//Recommended to Set to this
+	{0x39B8, 0x30},					//Recommended to Set to this
+	{0x39BA, 0x30},					//Recommended to Set to this
+	{0x39BC, 0x30},					//Recommended to Set to this
+	{0x39BE, 0x30},					//Recommended to Set to this
+	{0x39C0, 0x30},					//Recommended to Set to this
+	{0x39C2, 0x2E},					//Recommended to Set to this
+	{0x39C4, 0x2B},					//Recommended to Set to this
+	{0x39C6, 0x25},					//Recommended to Set to this
 	{0x3A42, 0xD1},					//Recommended to Set to this
 	{0x3A4C, 0x77},					//Recommended to Set to this
 	{0x3AE0, 0x02},					//Recommended to Set to this
@@ -889,18 +891,18 @@ static __maybe_unused const struct regval imx415_linear_12bit_3864x2192_891M_reg
 	{0x3BC4, 0xA2},					//Recommended to Set to this
 	{0x3BC8, 0xBD},					//Recommended to Set to this	
 	{0x3BCA, 0xBD},					//Recommended to Set to this
-	{0x4001, 0x01},		//LANE MODE 1 = 2 LANE, 3= 4 LANE 	
-	{0x4018, 0x7F},		//TCLKPOS_L
-	{0x401A, 0x37},		//TCLKPREPARE_L
-	{0x401C, 0x37},		//TCLKTRAIL_L		
-	{0x401E, 0xF7},		//TCLKZERO_L	
-	{0x401F, 0x00},		//TCLKZERO_H
-	{0x4020, 0x3F},		//THSPREPARE_L
-	{0x4022, 0x6F},		//THSZERO_L
-	{0x4024, 0x3F},		//THSTRAIL_L
-	{0x4026, 0x5F},		//THSEXIT_L
-	{0x4028, 0x2F},		//TLPX_L	
-	{0x3002, 0x00},		//XMSTA
+	{0x4001, 0x01},					//LANE MODE 1 = 2 LANE, 3= 4 LANE 	
+	{0x4018, 0x7F},					//TCLKPOS_L   		0x7Fh@891mBps@15, 0xD7h@2079Mbps@30FPS
+	{0x401A, 0x37},					//TCLKPREPARE_L 	0x37h		, 0x7Fh
+	{0x401C, 0x37},					//TCLKTRAIL_L		0x37h		, 0x7Fh
+	{0x401E, 0xF7},					//TCLKZERO_L		
+	{0x401F, 0x00},					//TCLKZERO_H		0x00f7h		,0x0237h
+	{0x4020, 0x3F},					//THSPREPARE_L		0x3fh		,0x87h
+	{0x4022, 0x6F},					//THSZERO_L		0x6fh		,0xEFh	
+	{0x4024, 0x3F},					//THSTRAIL_L		0x3fh		,0x87h
+	{0x4026, 0x5F},					//THSEXIT_L		0x5fh		,0xDFh
+	{0x4028, 0x2F},					//TLPX_L		0x2f		,0x6Fh
+	{0x3002, 0x00},					//XMSTA	0 = Master mode operating start.			
 	//{0x3000, 0x00},
 	{REG_DELAY, 0x1E},//wait_ms(30)
 	{REG_NULL, 0x00},
@@ -1066,38 +1068,151 @@ static __maybe_unused const struct regval imx415_linear_12bit_1284x720_2376M_reg
 	{REG_DELAY, 0x1E},//wait_ms(30)
 	{REG_NULL, 0x00},
 };
-static const struct regval imx415_linear_12bit_1920x1080_891M_regs_2lane[] = {
-    // Clock & lane config
-    {0x3008, 0x5D},
-    {0x300A, 0x42},
-    {0x3028, 0x98},
-    {0x3029, 0x08},
-
-    // ROI (windowing) – center 1920×1080, starting roughly at (972, 556)
-    {0x3410, 0x03}, // x_start high (0x03C4 → 964)
-    {0x3411, 0xC4}, // x_start low
-    {0x3412, 0x02}, // y_start high (0x0234 → 564)
-    {0x3413, 0x34}, // y_start low
-    {0x3414, 0x07}, // x_end high (0x0783 = 1923)
-    {0x3415, 0x83},
-    {0x3416, 0x04}, // y_end high (0x043B = 1083)
-    {0x3417, 0x3B},
-
-    // Line and frame length timing for 30 fps
-    {0x0340, 0x07}, // frame length lines = 0x0740 = 1856 lines
-    {0x0341, 0x40},
-    {0x0342, 0x0A}, // line length pixels = 0x0A80 = 2688
-    {0x0343, 0x80},
-
-    // Keep same 12‑bit / 2‑lane CSI2 output & PLL settings
-    {0x3033, 0x05},
-    {0x3050, 0x79},
-    {0x3051, 0x07},
-    // ... [Keep all ISP, analog, and MIPI‑CSI‑2 registers unchanged from your original]
-
-    // RG gain, exposure, etc remain
-    {REG_DELAY, 0x1E},
-    {REG_NULL, 0x00},
+/*
+ * Xclk 27Mhz
+ * 30fps
+ * CSI-2_2lane
+ * AD:12bit Output:12bit
+ * 2079Mbps
+ * Master Mode
+ * Time 9.988ms Gain:6dB
+ * All-pixel 0x3021, 0x00h default = 0
+ */
+static __maybe_unused const struct regval imx415_linear_12bit_3864x2192_2079M_regs_2lane[] = {			
+	{0x3008, 0x5D},					//BC_Wait time according to page 80 27MHz-------------------page54
+	{0x300A, 0x42},					//CP_Wait time according to page 80 27MHz
+	{0x3033, 0x02},					//SyncMode Output  05h= 891Mbps@15fps   02h = @2079Mbps@30fps 
+	{0x3115, 0x00},					//INCLKSEL1   default 0
+ 	{0x3116, 0x23},					//INCLKSEL2	
+	{0x3118, 0xE7},					//INCLKSEL3
+	{0x311A, 0xE7},					//INCLKSEL4
+	{0x311E, 0x23},					//INCLKSEL5
+	{0x4004, 0xC0},					//TXCLKESC_FREQ_Lowbyte				
+	{0x4005, 0x06},					//TXCLKESC_FREQ_Highbyte
+	{0x400C, 0x01},					//INCLKSEL6
+	{0x4074, 0x00},					//INCLKSEL7
+	{0x3028, 0x4C},					//Hmax_Lowbyte	
+	{0x3029, 0x04},					//Mmax_Highbyte	   0898C = @891Mbps@15fps, 044ch = @2079Mbps@30fps 
+	{0x3031, 0x01},					//ADBIT Default 1h = 12 bits, 0h = 10 bits
+	{0x3032, 0x01},					//MDBIT Default 1h = 12 bits, 0h = 10 bits
+	{0x3050, 0x79},					//SHR0_Lowbyte   (exposed time)
+	{0x3051, 0x07},					//SHR0_Highbyte    = 1913
+	{0x3090, 0x14},					//Gain PGC_0 0-72 dB
+	{0x30C1, 0x00},					//Window mode 0 = pixel , 2 = 2/2 line binding, 4 = cropping mode	
+	{0x32D4, 0x21},					//Recommended to Set to this
+	{0x32EC, 0xA1},					//Recommended to Set to this
+	{0x344C, 0x2B},					//Recommended to Set to this
+	{0x344D, 0x01},					//Recommended to Set to this
+	{0x344E, 0xED},					//Recommended to Set to this
+	{0x344F, 0x01},					//Recommended to Set to this
+	{0x3450, 0xF6},					//Recommended to Set to this
+	{0x3451, 0x02},					//Recommended to Set to this
+	{0x3452, 0x7F},					//Recommended to Set to this
+	{0x3453, 0x03},					//Recommended to Set to this
+	{0x358A, 0x04},					//Recommended to Set to this
+	{0x35A1, 0x02},					//Recommended to Set to this
+	{0x35EC, 0x27},					//Recommended to Set to this
+	{0x35EE, 0x8D},					//Recommended to Set to this
+	{0x35F0, 0x8D},					//Recommended to Set to this
+	{0x35F2, 0x29},					//Recommended to Set to this
+	{0x36BC, 0x0C},					//Recommended to Set to this				
+	{0x36CC, 0x53},					//Recommended to Set to this
+	{0x36CD, 0x00},					//Recommended to Set to this
+	{0x36CE, 0x3C},					//Recommended to Set to this
+	{0x36D0, 0x8C},					//Recommended to Set to this
+	{0x36D1, 0x00},					//Recommended to Set to this
+	{0x36D2, 0x71},					//Recommended to Set to this
+	{0x36D4, 0x3C},					//Recommended to Set to this
+	{0x36D6, 0x53},					//Recommended to Set to this
+	{0x36D7, 0x00},					//Recommended to Set to this
+	{0x36D8, 0x71},					//Recommended to Set to this
+	{0x36DA, 0x8C},					//Recommended to Set to this
+	{0x36DB, 0x00},					//Recommended to Set to this
+	{0x3720, 0x00},					//Recommended to Set to this
+	{0x3724, 0x02},					//Recommended to Set to this
+	{0x3726, 0x02},					//Recommended to Set to this
+	{0x3732, 0x02},					//Recommended to Set to this
+	{0x3734, 0x03},					//Recommended to Set to this	
+	{0x3736, 0x03},					//Recommended to Set to this
+	{0x3742, 0x03},					//Recommended to Set to this
+	{0x3862, 0xE0},					//Recommended to Set to this
+	{0x38CC, 0x30},					//Recommended to Set to this
+	{0x38CD, 0x2F},					//Recommended to Set to this
+	{0x395C, 0x0C},					//Recommended to Set to this
+	{0x39A4, 0x07},					//Recommended to Set to this
+	{0x39A8, 0x32},					//Recommended to Set to this
+	{0x39AA, 0x32},					//Recommended to Set to this	
+	{0x39AC, 0x32},					//Recommended to Set to this
+	{0x39AE, 0x32},					//Recommended to Set to this
+	{0x39B0, 0x32},					//Recommended to Set to this
+	{0x39B2, 0x2F},					//Recommended to Set to this
+	{0x39B4, 0x2D},					//Recommended to Set to this
+	{0x39B6, 0x28},					//Recommended to Set to this
+	{0x39B8, 0x30},					//Recommended to Set to this
+	{0x39BA, 0x30},					//Recommended to Set to this
+	{0x39BC, 0x30},					//Recommended to Set to this
+	{0x39BE, 0x30},					//Recommended to Set to this
+	{0x39C0, 0x30},					//Recommended to Set to this
+	{0x39C2, 0x2E},					//Recommended to Set to this
+	{0x39C4, 0x2B},					//Recommended to Set to this
+	{0x39C6, 0x25},					//Recommended to Set to this
+	{0x3A42, 0xD1},					//Recommended to Set to this
+	{0x3A4C, 0x77},					//Recommended to Set to this
+	{0x3AE0, 0x02},					//Recommended to Set to this
+	{0x3AEC, 0x0C},					//Recommended to Set to this
+	{0x3B00, 0x2E},					//Recommended to Set to this
+	{0x3B06, 0x29},					//Recommended to Set to this
+	{0x3B98, 0x25},					//Recommended to Set to this
+	{0x3B99, 0x21},					//Recommended to Set to this
+	{0x3B9B, 0x13},					//Recommended to Set to this	
+	{0x3B9C, 0x13},					//Recommended to Set to this
+	{0x3B9D, 0x13},					//Recommended to Set to this
+	{0x3B9E, 0x13},					//Recommended to Set to this
+	{0x3BA1, 0x00},					//Recommended to Set to this
+	{0x3BA2, 0x06},					//Recommended to Set to this
+	{0x3BA3, 0x0B},					//Recommended to Set to this
+	{0x3BA4, 0x10},					//Recommended to Set to this
+	{0x3BA5, 0x14},					//Recommended to Set to this
+	{0x3BA6, 0x18},					//Recommended to Set to this
+	{0x3BA7, 0x1A},					//Recommended to Set to this
+	{0x3BA8, 0x1A},					//Recommended to Set to this
+	{0x3BA9, 0x1A},					//Recommended to Set to this
+	{0x3BAC, 0xED},					//Recommended to Set to this
+	{0x3BAD, 0x01},					//Recommended to Set to this
+	{0x3BAE, 0xF6},					//Recommended to Set to this
+	{0x3BAF, 0x02},					//Recommended to Set to this
+	{0x3BB0, 0xA2},					//Recommended to Set to this
+	{0x3BB1, 0x03},					//Recommended to Set to this
+	{0x3BB2, 0xE0},					//Recommended to Set to this
+	{0x3BB3, 0x03},					//Recommended to Set to this
+	{0x3BB4, 0xE0},					//Recommended to Set to this
+	{0x3BB5, 0x03},					//Recommended to Set to this
+	{0x3BB6, 0xE0},					//Recommended to Set to this
+	{0x3BB7, 0x03},					//Recommended to Set to this
+	{0x3BB8, 0xE0},					//Recommended to Set to this
+	{0x3BBA, 0xE0},					//Recommended to Set to this	
+	{0x3BBC, 0xDA},					//Recommended to Set to this
+	{0x3BBE, 0x88},					//Recommended to Set to this
+	{0x3BC0, 0x44},					//Recommended to Set to this
+	{0x3BC2, 0x7B},					//Recommended to Set to this
+	{0x3BC4, 0xA2},					//Recommended to Set to this
+	{0x3BC8, 0xBD},					//Recommended to Set to this	
+	{0x3BCA, 0xBD},					//Recommended to Set to this
+	{0x4001, 0x01},					//LANE MODE 1 = 2 LANE, 3= 4 LANE 	
+	{0x4018, 0xD7},					//TCLKPOS_L   		0x7Fh@891mBps@15, 0xD7h@2079Mbps@30FPS
+	{0x401A, 0x7F},					//TCLKPREPARE_L 	0x37h		, 0x7Fh
+	{0x401C, 0x7F},					//TCLKTRAIL_L		0x37h		, 0x7Fh
+	{0x401E, 0x37},					//TCLKZERO_L		
+	{0x401F, 0x02},					//TCLKZERO_H		0x00f7h		,0x0237h
+	{0x4020, 0x87},					//THSPREPARE_L		0x3fh		,0x87h
+	{0x4022, 0xEF},					//THSZERO_L		0x6fh		,0xEFh	
+	{0x4024, 0x87},					//THSTRAIL_L		0x3fh		,0x87h
+	{0x4026, 0xDF},					//THSEXIT_L		0x5fh		,0xDFh
+	{0x4028, 0x6F},					//TLPX_L		0x2f		,0x6Fh
+	{0x3002, 0x00},					//XMSTA	0 = Master mode operating start.			
+	//{0x3000, 0x00},
+	{REG_DELAY, 0x1E},//wait_ms(30)
+	{REG_NULL, 0x00},
 };
 /*
  * The width and height must be configured to be
@@ -1346,7 +1461,9 @@ static const struct imx415_mode supported_modes_2lane[] = {
 		.hts_def = 0x0898 * IMX415_2LANES * 2,
 		.vts_def = 0x08ca,
 		.global_reg_list = NULL,
-		.reg_list = imx415_linear_12bit_3864x2192_891M_regs_2lane,
+
+		//.reg_list = imx415_linear_12bit_3864x2192_891M_regs_2lane,		
+		.reg_list = imx415_linear_12bit_3864x2192_2079M_regs_2lane,
 		.hdr_mode = NO_HDR,
 		.mipi_freq_idx = 1,
 		.bpp = 12,
