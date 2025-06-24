@@ -62,6 +62,7 @@
 #define V4L2_CID_DIGITAL_GAIN		V4L2_CID_GAIN
 #endif
 
+#define MIPI_FREQ_2079M			2079000000
 #define MIPI_FREQ_1188M			1188000000
 #define MIPI_FREQ_891M			891000000
 #define MIPI_FREQ_446M			446000000
@@ -1505,6 +1506,7 @@ static const s64 link_freq_items[] = {
 	MIPI_FREQ_743M,
 	MIPI_FREQ_891M,
 	MIPI_FREQ_1188M,
+	MIPI_FREQ_2079M
 };
 
 /* Write registers up to 4 at a time */
