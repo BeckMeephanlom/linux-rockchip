@@ -197,7 +197,7 @@ struct imx415_mode {
 	u32 width;
 	u32 height;
 	struct v4l2_fract max_fps;
-	u32 hts_def;
+	u32 hts_def;				
 	u32 vts_def;
 	u32 exp_def;
 	u32 mipi_freq_idx;
@@ -1457,11 +1457,18 @@ static const struct imx415_mode supported_modes_2lane[] = {
 			.numerator = 10000,
 			.denominator = 300000,
 		},
-		.exp_def = 0x08ca - 0x08,
-		.hts_def = 0x0898 * IMX415_2LANES * 2,
-		.vts_def = 0x08ca,
+		/*891M
+		.exp_def = 0x08ca - 0x08,					//vts_def -8 
+		//.hts_def = 0x0898 * IMX415_2LANES * 2,			//HMax * IMX415_2LANES * 2 
+		.vts_def = 0x08ca,						//Vmax
 		.global_reg_list = NULL,
-
+                */
+		//2079M
+		.exp_def = 0x08ca - 0x08,					//vts_def -8 						
+		.hts_def = 0x044C * IMX415_2LANES * 2,			        //HMax * IMX415_2LANES * 2 
+		.vts_def = 0x08ca,						//Vmax
+		.global_reg_list = NULL,
+                
 		//.reg_list = imx415_linear_12bit_3864x2192_891M_regs_2lane,		
 		.reg_list = imx415_linear_12bit_3864x2192_2079M_regs_2lane,
 		.hdr_mode = NO_HDR,
