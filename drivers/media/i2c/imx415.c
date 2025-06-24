@@ -1456,7 +1456,7 @@ static const struct imx415_mode supported_modes_2lane[] = {
 		.height = 2192,
 		.max_fps = {
 			.numerator = 10000,
-			.denominator = 337440,					//333000 for 30FPS amd 		 11248/FPS 
+			.denominator = 300000,					//333000 for 30FPS amd 		 11248/FPS 
 		},
 		/*891M
 		.exp_def = 0x08ca - 0x08,					//vts_def -8 
