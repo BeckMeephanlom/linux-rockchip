@@ -1454,8 +1454,8 @@ static const struct imx415_mode supported_modes_2lane[] = {
 	{
 		/* 1H period = (1100 clock) = (1100 * 1 / 74.25MHz) */
 		.bus_fmt = MEDIA_BUS_FMT_SGBRG12_1X12,
-		.width = 3864,
-		.height = 2192,
+		.width = 3840,
+		.height = 2160,
 		.max_fps = {
 			.numerator = 10000,
 			.denominator = 300000,					//333000 for 30FPS amd 		 11248/FPS 
@@ -1468,15 +1468,15 @@ static const struct imx415_mode supported_modes_2lane[] = {
                 */
 		//2079M
 		.exp_def = 0x08ca - 0x08,					//vts_def -8 						
-		.hts_def = 0x044C * IMX415_2LANES * 2,			        //HMax * IMX415_2LANES * 2 
-		.vts_def = 0x08ca,						//Vmax
+		.hts_def = 3840,			        //HMax * IMX415_2LANES * 2 
+		.vts_def = 2160,						//Vmax
 		.global_reg_list = NULL,
                 
 		//.reg_list = imx415_linear_12bit_3864x2192_891M_regs_2lane,		
 		.reg_list = imx415_linear_12bit_3864x2192_2079M_regs_2lane,
 		.hdr_mode = NO_HDR,
 		.mipi_freq_idx = 4,
-		.bpp = 12,
+		.bpp = 10,
 		.vc[PAD0] = 0,
 		.xvclk = IMX415_XVCLK_FREQ_27M,
 	},
