@@ -795,7 +795,7 @@
 };
 
 &uart4 {
-	status = "disabled";
+	status = "okay";
 	pinctrl-names = "default";
 	pinctrl-0 = <&uart4m2_xfer>;
 };
