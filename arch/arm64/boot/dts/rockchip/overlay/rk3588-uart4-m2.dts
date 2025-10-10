@@ -6,7 +6,7 @@
 		target = <&uart4>;
 
 		__overlay__ {
-			status = "okay";
+			status = "disable";
 			pinctrl-0 = <&uart4m2_xfer>;
 		};
 	};
