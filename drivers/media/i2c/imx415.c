@@ -1449,13 +1449,13 @@ static const struct imx415_mode supported_modes[] = {
 		.xvclk = IMX415_XVCLK_FREQ_37M,
 	},
 };
-
+//2 Lanse start here for hour HD
 static const struct imx415_mode supported_modes_2lane[] = {
 	{
 		/* 1H period = (1100 clock) = (1100 * 1 / 74.25MHz) */
 		.bus_fmt = MEDIA_BUS_FMT_SGBRG12_1X12,
-		.width = 3840,
-		.height = 2160,
+		.width = 3864,
+		.height = 2192,
 		.max_fps = {
 			.numerator = 10000,
 			.denominator = 300000,					//333000 for 30FPS amd 		 11248/FPS 
@@ -1466,10 +1466,10 @@ static const struct imx415_mode supported_modes_2lane[] = {
 		.vts_def = 0x08ca,						//Vmax
 		.global_reg_list = NULL,
                 */
-		//2079M
+		//Our 4K 26FPS ??? 2079M
 		.exp_def = 0x08ca - 0x08,					//vts_def -8 						
-		.hts_def = 3840,			        //HMax * IMX415_2LANES * 2 
-		.vts_def = 2160,						//Vmax
+		.hts_def = 3864,			             //HMax * IMX415_2LANES * 2 
+		.vts_def = 2190,					  	//Vmax
 		.global_reg_list = NULL,
                 
 		//.reg_list = imx415_linear_12bit_3864x2192_891M_regs_2lane,		
