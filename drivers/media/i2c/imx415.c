@@ -29,6 +29,8 @@
  * 3. enum all supported mode mbus_code, not just cur_mode.
  * V0.0X01.0X08
  * 1. add dcphy param for hdrx2 mode.
+ * V0.0X01.0X09
+ * 1. add MIPI_FREQ_2079M 2 lane highspeed
  */
 
 #define DEBUG
@@ -62,6 +64,7 @@
 #define V4L2_CID_DIGITAL_GAIN		V4L2_CID_GAIN
 #endif
 
+#define MIPI_FREQ_2079M			2079000000							//26-Nov-2025 2 Lane High Speed
 #define MIPI_FREQ_1188M			1188000000
 #define MIPI_FREQ_891M			891000000
 #define MIPI_FREQ_446M			446000000
@@ -78,8 +81,8 @@
 #define IMX415_XVCLK_FREQ_27M		27000000
 
 /* TODO: Get the real chip id from reg */
-#define CHIP_ID				0xE0
-#define IMX415_REG_CHIP_ID		0x311A
+#define CHIP_ID				    	0xE0
+#define IMX415_REG_CHIP_ID			0x311A
 
 #define IMX415_REG_CTRL_MODE		0x3000
 #define IMX415_MODE_SW_STANDBY		BIT(0)
@@ -106,24 +109,24 @@
 #define IMX415_SF2_EXPO_REG_M		0x3059
 #define IMX415_SF2_EXPO_REG_L		0x3058
 
-#define IMX415_RHS1_REG_H		0x3062
-#define IMX415_RHS1_REG_M		0x3061
-#define IMX415_RHS1_REG_L		0x3060
-#define IMX415_RHS1_DEFAULT		0x004D
+#define IMX415_RHS1_REG_H			0x3062
+#define IMX415_RHS1_REG_M			0x3061
+#define IMX415_RHS1_REG_L			0x3060
+#define IMX415_RHS1_DEFAULT			0x004D
 
-#define IMX415_RHS2_REG_H		0x3066
-#define IMX415_RHS2_REG_M		0x3065
-#define IMX415_RHS2_REG_L		0x3064
-#define IMX415_RHS2_DEFAULT		0x004D
+#define IMX415_RHS2_REG_H			0x3066
+#define IMX415_RHS2_REG_M			0x3065
+#define IMX415_RHS2_REG_L			0x3064
+#define IMX415_RHS2_DEFAULT			0x004D
 
-#define	IMX415_EXPOSURE_MIN		4
+#define	IMX415_EXPOSURE_MIN			4
 #define	IMX415_EXPOSURE_STEP		1
-#define IMX415_VTS_MAX			0x7fff
+#define IMX415_VTS_MAX				0x7fff
 
-#define IMX415_GAIN_MIN			0x00
-#define IMX415_GAIN_MAX			0xf0
-#define IMX415_GAIN_STEP		1
-#define IMX415_GAIN_DEFAULT		0x00
+#define IMX415_GAIN_MIN				0x00
+#define IMX415_GAIN_MAX				0xf0
+#define IMX415_GAIN_STEP			1
+#define IMX415_GAIN_DEFAULT			0x00
 
 #define IMX415_FETCH_GAIN_H(VAL)	(((VAL) >> 8) & 0x07)
 #define IMX415_FETCH_GAIN_L(VAL)	((VAL) & 0xFF)
@@ -140,16 +143,16 @@
 #define IMX415_FETCH_VTS_M(VAL)		(((VAL) >> 8) & 0xFF)
 #define IMX415_FETCH_VTS_L(VAL)		((VAL) & 0xFF)
 
-#define IMX415_VTS_REG_L		0x3024
-#define IMX415_VTS_REG_M		0x3025
-#define IMX415_VTS_REG_H		0x3026
+#define IMX415_VTS_REG_L			0x3024
+#define IMX415_VTS_REG_M			0x3025
+#define IMX415_VTS_REG_H			0x3026
 
 #define IMX415_MIRROR_BIT_MASK		BIT(0)
 #define IMX415_FLIP_BIT_MASK		BIT(1)
-#define IMX415_FLIP_REG			0x3030
+#define IMX415_FLIP_REG				0x3030
 
-#define REG_NULL			0xFFFF
-#define REG_DELAY			0xFFFE
+#define REG_NULL					0xFFFF
+#define REG_DELAY					0xFFFE
 
 #define IMX415_REG_VALUE_08BIT		1
 #define IMX415_REG_VALUE_16BIT		2
@@ -758,7 +761,9 @@ static __maybe_unused const struct regval imx415_hdr2_12bit_1932x1096_891M_regs[
 	{REG_NULL, 0x00},
 };
 
-/*
+/* This is default with 13.33fps at the test 
+ * 	{0x3031, 0x01},					//ADBIT Default 1h = 12 bits, 0h = 10 bits   
+ *	{0x3032, 0x01},					//MDBIT Default 1h = 12 bits, 0h = 10 bits  
  * Xclk 27Mhz
  * 15fps
  * CSI-2_2lane
@@ -772,6 +777,8 @@ static __maybe_unused const struct regval imx415_linear_12bit_3864x2192_891M_reg
 	{0x3008, 0x5D},
 	{0x300A, 0x42},
 	{0x3028, 0x98},
+	{0x3031, 0x00},					//add tp test 10 bits ADBIT Default 1h = 12 bits, 0h = 10 bits   
+	{0x3032, 0x00},					//add to test 10 bits MDBIT Default 1h = 12 bits, 0h = 10 bits  
 	{0x3029, 0x08},
 	{0x3033, 0x05},
 	{0x3050, 0x79},
