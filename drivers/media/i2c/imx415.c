@@ -1347,6 +1347,7 @@ static const s64 link_freq_items[] = {
 	MIPI_FREQ_743M,
 	MIPI_FREQ_891M,
 	MIPI_FREQ_1188M,
+	MIPI_FREQ_2079M,					//26-Nov-2025 2 Lane High Speed
 };
 
 /* Write registers up to 4 at a time */
