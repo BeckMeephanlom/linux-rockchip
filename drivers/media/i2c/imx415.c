@@ -762,8 +762,7 @@ static __maybe_unused const struct regval imx415_hdr2_12bit_1932x1096_891M_regs[
 };
 
 /* This is default with 13.33fps at the test 
- * 	{0x3031, 0x01},					//ADBIT Default 1h = 12 bits, 0h = 10 bits   
- *	{0x3032, 0x01},					//MDBIT Default 1h = 12 bits, 0h = 10 bits  
+ * Change CP Timming 0x3008 amd 0x300A
  * Xclk 27Mhz
  * 15fps
  * CSI-2_2lane
@@ -774,12 +773,8 @@ static __maybe_unused const struct regval imx415_hdr2_12bit_1932x1096_891M_regs[
  * All-pixel
  */
 static __maybe_unused const struct regval imx415_linear_12bit_3864x2192_891M_regs_2lane[] = {
-	{0x3008, 0x5D},
-	{0x300A, 0x42},
-	{0x3028, 0x98},
-	{0x3031, 0x00},					//add tp test 10 bits ADBIT Default 1h = 12 bits, 0h = 10 bits   
-	{0x3032, 0x00},					//add to test 10 bits MDBIT Default 1h = 12 bits, 0h = 10 bits  
-	{0x3029, 0x08},
+	{0x3008, 0x44},
+	{0x300A, 0xFB},
 	{0x3033, 0x05},
 	{0x3050, 0x79},
 	{0x3051, 0x07},
