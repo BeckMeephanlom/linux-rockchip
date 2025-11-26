@@ -775,6 +775,8 @@ static __maybe_unused const struct regval imx415_hdr2_12bit_1932x1096_891M_regs[
 static __maybe_unused const struct regval imx415_linear_12bit_3864x2192_891M_regs_2lane[] = {
 	{0x3008, 0x44},
 	{0x300A, 0xFB},
+	{0x3028, 0x98},
+	{0x3029, 0x08},
 	{0x3033, 0x05},
 	{0x3050, 0x79},
 	{0x3051, 0x07},
