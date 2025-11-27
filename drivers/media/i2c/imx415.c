@@ -932,8 +932,8 @@ static __maybe_unused const struct regval imx415_linear_12bit_3864x2192_2079M_re
 	{0x3025, 0x08},					//Vmax_Highbyte	   0x0870h = 2160
 	{0x3028, 0x4C},					//Hmax_Lowbyte	
 	{0x3029, 0x04},					//Mmax_Highbyte	   0898C = @891Mbps@15fps, 044ch = @2079Mbps@30fps    
-	{0x3031, 0x00},					//ADBIT Default 1h = 12 bits, 0h = 10 bits   //test 10 bits 
-	{0x3032, 0x00},					//MDBIT Default 1h = 12 bits, 0h = 10 bits   //test 10 bits
+	{0x3031, 0x01},					//ADBIT Default 1h = 12 bits, 0h = 10 bits  
+	{0x3032, 0x01},					//MDBIT Default 1h = 12 bits, 0h = 10 bits   
 	{0x3050, 0x79},					//SHR0_Lowbyte   (exposed time)
 	{0x3051, 0x07},					//SHR0_Highbyte    = 1913
 	{0x3090, 0x14},					//Gain PGC_0 0-72 dB
@@ -1465,7 +1465,7 @@ static const struct imx415_mode supported_modes_2lane[] = {
 		.reg_list = imx415_linear_12bit_3864x2192_2079M_regs_2lane,
 		.hdr_mode = NO_HDR,
 		.mipi_freq_idx = 4,
-		.bpp = 10,
+		.bpp = 12,
 		.vc[PAD0] = 0,
 		.xvclk = IMX415_XVCLK_FREQ_27M,
 	},
