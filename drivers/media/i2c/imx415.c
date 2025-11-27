@@ -773,10 +773,10 @@ static __maybe_unused const struct regval imx415_hdr2_12bit_1932x1096_891M_regs[
  * All-pixel
  */
 static __maybe_unused const struct regval imx415_linear_12bit_3864x2192_891M_regs_2lane[] = {
-	{0x3008, 0x44},
-	{0x300A, 0xFB},
-	{0x3028, 0x98},
-	{0x3029, 0x08},
+	{0x3008, 0x5D},
+	{0x300A, 0x42},
+	{0x3028, 0xC0}, // VTS low byte
+	{0x3029, 0x07}, // VTS high byte
 	{0x3033, 0x05},
 	{0x3050, 0x79},
 	{0x3051, 0x07},
@@ -1310,9 +1310,12 @@ static const struct imx415_mode supported_modes_2lane[] = {
 			.numerator = 10000,
 			.denominator = 150000,
 		},
-		.exp_def = 0x08ca - 0x08,
+			
+		//.exp_def = 0x08ca - 0x08,
+		.exp_def = 0x07C0 - 0x08   // keep same offset
 		.hts_def = 0x0898 * IMX415_2LANES * 2,
-		.vts_def = 0x08ca,
+		//.vts_def = 0x08ca,
+		.vts_def = 0x07C0
 		.global_reg_list = NULL,
 		.reg_list = imx415_linear_12bit_3864x2192_891M_regs_2lane,
 		.hdr_mode = NO_HDR,
