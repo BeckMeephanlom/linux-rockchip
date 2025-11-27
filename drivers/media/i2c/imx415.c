@@ -762,7 +762,6 @@ static __maybe_unused const struct regval imx415_hdr2_12bit_1932x1096_891M_regs[
 };
 
 /* This is default with 13.33fps at the test 
- * Change CP Timming 0x3008 amd 0x300A
  * Xclk 27Mhz
  * 15fps
  * CSI-2_2lane
@@ -928,8 +927,8 @@ static __maybe_unused const struct regval imx415_linear_12bit_3864x2192_2079M_re
 	{0x4005, 0x06},					//TXCLKESC_FREQ_Highbyte
 	{0x400C, 0x01},					//INCLKSEL6
 	{0x4074, 0x00},					//INCLKSEL7
-	{0x3024, 0x70},					//Vmax_Lowbyte	
-	{0x3025, 0x08},					//Vmax_Highbyte	   0x0870h = 2160
+	{0x3024, 0xCA},
+	{0x3025, 0x08},
 	{0x3028, 0x4C},					//Hmax_Lowbyte	
 	{0x3029, 0x04},					//Mmax_Highbyte	   0898C = @891Mbps@15fps, 044ch = @2079Mbps@30fps    
 	{0x3031, 0x01},					//ADBIT Default 1h = 12 bits, 0h = 10 bits  
@@ -1039,15 +1038,15 @@ static __maybe_unused const struct regval imx415_linear_12bit_3864x2192_2079M_re
 	{0x3BCA, 0xBD},					//Recommended to Set to this
 	{0x4001, 0x01},					//LANE MODE 1 = 2 LANE, 3= 4 LANE 	
 	{0x4018, 0xD7},					//TCLKPOS_L   		0x7Fh@891mBps@15, 0xD7h@2079Mbps@30FPS
-	{0x401A, 0x7F},					//TCLKPREPARE_L 	0x37h		, 0x7Fh
-	{0x401C, 0x7F},					//TCLKTRAIL_L		0x37h		, 0x7Fh
+	{0x401A, 0x7F},					//TCLKPREPARE_L 	0x37h			, 0x7Fh
+	{0x401C, 0x7F},					//TCLKTRAIL_L		0x37h			, 0x7Fh
 	{0x401E, 0x37},					//TCLKZERO_L		
 	{0x401F, 0x02},					//TCLKZERO_H		0x00f7h		,0x0237h
 	{0x4020, 0x87},					//THSPREPARE_L		0x3fh		,0x87h
-	{0x4022, 0xEF},					//THSZERO_L		0x6fh		,0xEFh	
+	{0x4022, 0xEF},					//THSZERO_L			0x6fh		,0xEFh	
 	{0x4024, 0x87},					//THSTRAIL_L		0x3fh		,0x87h
-	{0x4026, 0xDF},					//THSEXIT_L		0x5fh		,0xDFh
-	{0x4028, 0x6F},					//TLPX_L		0x2f		,0x6Fh
+	{0x4026, 0xDF},					//THSEXIT_L			0x5fh		,0xDFh
+	{0x4028, 0x6F},					//TLPX_L			0x2f		,0x6Fh
 	{0x3002, 0x00},					//XMSTA	0 = Master mode operating start.			
 	//{0x3000, 0x00},
 	{REG_DELAY, 0x1E},//wait_ms(30)
@@ -1464,7 +1463,7 @@ static const struct imx415_mode supported_modes_2lane[] = {
 		.global_reg_list = NULL,
 		.reg_list = imx415_linear_12bit_3864x2192_2079M_regs_2lane,
 		.hdr_mode = NO_HDR,
-		.mipi_freq_idx = 5,
+		.mipi_freq_idx = 4,					//Lower 5 
 		.bpp = 12,
 		.vc[PAD0] = 0,
 		.xvclk = IMX415_XVCLK_FREQ_27M,
