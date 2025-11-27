@@ -930,8 +930,8 @@ static __maybe_unused const struct regval imx415_linear_12bit_3864x2192_2079M_re
 	{0x4074, 0x00},					//INCLKSEL7
 	{0x3024, 0x70},					//Vmax_Lowbyte	
 	{0x3025, 0x08},					//Vmax_Highbyte	   0x0870h = 2160
-	{0x3028, 0x00},					//Hmax_Lowbyte	
-	{0x3029, 0x0f},					//Mmax_Highbyte	   0898C = @891Mbps@15fps, 044ch = @2079Mbps@30fps     Hmax as 0x0f00h = 3840
+	{0x3028, 0x4C},					//Hmax_Lowbyte	
+	{0x3029, 0x04},					//Mmax_Highbyte	   0898C = @891Mbps@15fps, 044ch = @2079Mbps@30fps    
 	{0x3031, 0x00},					//ADBIT Default 1h = 12 bits, 0h = 10 bits   //test 10 bits 
 	{0x3032, 0x00},					//MDBIT Default 1h = 12 bits, 0h = 10 bits   //test 10 bits
 	{0x3050, 0x79},					//SHR0_Lowbyte   (exposed time)
@@ -1456,36 +1456,12 @@ static const struct imx415_mode supported_modes_2lane[] = {
 		.height = 2192,
 		.max_fps = {
 			.numerator = 10000,
-			.denominator = 150000,
-		},
-			
-		.exp_def = 0x08ca - 0x08,
-		.hts_def = 0x0898 * IMX415_2LANES * 2,
-		 .vts_def = 0x08ca,
-		.global_reg_list = NULL,
-		.reg_list = imx415_linear_12bit_3864x2192_891M_regs_2lane,
-		.hdr_mode = NO_HDR,
-		.mipi_freq_idx = 1,
-		.bpp = 12,
-		.vc[PAD0] = 0,
-		.xvclk = IMX415_XVCLK_FREQ_27M,
-	},
-	{
-		/* 1H period = (1100 clock) = (1100 * 1 / 74.25MHz) */
-		.bus_fmt = MEDIA_BUS_FMT_SGBRG12_1X12,
-		.width = 3864,
-		.height = 2192,
-		.max_fps = {
-			.numerator = 10000,
 			.denominator = 300000,					
 		},
-		//Our 4K 26FPS ??? 2079M
-		.exp_def = 0x08ca - 0x08,					//vts_def -8 						
-		.hts_def = 3864,			             //HMax * IMX415_2LANES * 2 
-		.vts_def = 2190,					  	//Vmax
+		.exp_def = 0x08ca - 0x08,										
+		.hts_def = 3864,			             
+		.vts_def = 2190,					  
 		.global_reg_list = NULL,
-                
-		//.reg_list = imx415_linear_12bit_3864x2192_891M_regs_2lane,		
 		.reg_list = imx415_linear_12bit_3864x2192_2079M_regs_2lane,
 		.hdr_mode = NO_HDR,
 		.mipi_freq_idx = 4,
