@@ -3,7 +3,7 @@
 
 / {
 	fragment@0 {
-		target = <&csi2_dphy1>;
+		target = <&csi2_dphy0>;
 
 		__overlay__ {
 			status = "okay";
