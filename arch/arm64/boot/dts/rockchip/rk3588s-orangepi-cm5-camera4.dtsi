@@ -15,13 +15,13 @@
 			#address-cells = <1>;
 			#size-cells = <0>;
 
-			mipidcphy0_in_ucam0: endpoint@0 {
+			mipidcphy1_in_ucam0: endpoint@0 {
 				reg = <0>;
 				remote-endpoint = <&ov5647_4_out>;
 				data-lanes = <1 2>;
 			};
 
-			mipidcphy0_in_ucam1: endpoint@1 {
+			mipidcphy1_in_ucam1: endpoint@1 {
 				reg = <1>;
 				remote-endpoint = <&imx219_4_out>;
 				data-lanes = <1 2>;
@@ -59,7 +59,7 @@
 		rockchip,camera-module-lens-name = "default";
 		port {
 			ov5647_4_out: endpoint {
-			        remote-endpoint = <&mipidcphy0_in_ucam0>;
+			        remote-endpoint = <&mipidcphy1_in_ucam0>;
 			        data-lanes = <1 2>;
 			};
 		};
@@ -78,7 +78,7 @@
 		rockchip,camera-module-lens-name = "default";
 		port {
 			imx219_4_out: endpoint {
-			        remote-endpoint = <&mipidcphy0_in_ucam1>;
+			        remote-endpoint = <&mipidcphy1_in_ucam1>;
 			        data-lanes = <1 2>;
 			};
 		};
