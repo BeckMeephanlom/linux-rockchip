@@ -4,7 +4,7 @@
  *
  */
 
-&csi2_dcphy0 {
+&csi2_dcphy1 {
 	status = "disabled";
 
 	ports {
