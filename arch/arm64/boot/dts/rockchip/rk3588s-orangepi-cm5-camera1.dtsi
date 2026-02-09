@@ -33,7 +33,7 @@
 			mipidphy1_in_ucam2: endpoint@2 {
 				reg = <2>;
 				remote-endpoint = <&imx415_1_out1>;
-				data-lanes = <1 2>;
+				data-lanes = <1 2 3 4>;
 			};
 
 		};
@@ -87,7 +87,7 @@
 		port {
 			imx219_1_out1: endpoint {
 				remote-endpoint = <&mipidphy1_in_ucam1>;
-				data-lanes = <1 2>;
+				data-lanes = <1 2 >;
 			};
 		};
 	};
@@ -103,7 +103,7 @@
 		pinctrl-names = "default";
 		pinctrl-0 = <&mipim0_camera1_clk>;
 		power-domains = <&power RK3588_PD_VI>;
-		pwdn-gpios = <&gpio1 RK_PD0 GPIO_ACTIVE_LOW>;
+		pwdn-gpios = <&gpio1 RK_PD0 GPIO_ACTIVE_LOW>;				//IR CUT OFF ON
 		
 
 		rockchip,camera-module-index = <0>;
@@ -113,7 +113,7 @@
 		port {
 			imx415_1_out1: endpoint {
 				remote-endpoint = <&mipidphy1_in_ucam2>;
-				data-lanes = <1 2>;				//15Pin Supports only 2 Lanes
+				data-lanes = <1 2 3 4>;								//15Pin Supports only 2 Lanes
 			};
 		};
 	};
