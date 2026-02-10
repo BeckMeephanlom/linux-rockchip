@@ -1266,22 +1266,29 @@ static const struct imx415_mode supported_modes[] = {
 	 * VMAX >= (PIX_VWIDTH / 2) + 46 = height + 46
 	 */
 	{
-		.bus_fmt = MEDIA_BUS_FMT_SGBRG10_1X10,
+		.bus_fmt = MEDIA_BUS_FMT_SGBRG12_1X12,
 		.width = 3864,
 		.height = 2192,
 		.max_fps = {
 			.numerator = 10000,
-			.denominator = 300000,
+			.denominator = 600000,
 		},
-		.exp_def = 0x08ca - 0x08,
-		.hts_def = 0x044c * IMX415_4LANES * 2,
-		.vts_def = 0x08ca,
-		.global_reg_list = imx415_global_10bit_3864x2192_regs,
-		.reg_list = imx415_linear_10bit_3864x2192_891M_regs,
-		.hdr_mode = NO_HDR,
-		.mipi_freq_idx = 3,							//default 1
-		.bpp = 10,
-		.vc[PAD0] = 0,
+		.exp_def = 0x114,
+		.hts_def = 0x0226 * IMX415_4LANES * 2,
+		/*
+		 * IMX415 HDR mode T-line is half of Linear mode,
+		 * make vts double(that is FSC) to workaround.
+		 */
+		.vts_def = 0x0696 * 4,
+		.global_reg_list = imx415_global_12bit_3864x2192_regs,
+		.reg_list = imx415_hdr3_12bit_3864x2192_1782M_regs,
+		.hdr_mode = HDR_X3,
+		.mipi_freq_idx = 3,
+		.bpp = 12,
+		.vc[PAD0] = 2,
+		.vc[PAD1] = 1,//M->csi wr0
+		.vc[PAD2] = 0,//L->csi wr0
+		.vc[PAD3] = 2,//S->csi wr2
 		.xvclk = IMX415_XVCLK_FREQ_37M,
 	},
 	{
