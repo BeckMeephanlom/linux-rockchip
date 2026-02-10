@@ -48,7 +48,7 @@
 		compatible = "sony,imx415";
 		reg = <0x37>;
 		//clocks = <&ext_cam_ov5647_clk>;
-		clocks = <&cru CLK_MIPI_CAMARAOUT_M3>;
+		clocks = <&cru CLK_MIPI_CAMARAOUT_M1>;
 		clock-names = "xvclk";
 		pinctrl-names = "default";
 		pinctrl-0 = <&mipim0_camera1_clk>;
