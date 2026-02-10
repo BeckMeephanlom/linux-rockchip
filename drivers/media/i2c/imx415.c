@@ -65,6 +65,7 @@
 #endif
 
 #define MIPI_FREQ_2079M			2079000000							//26-Nov-2025 2 Lane High Speed
+#define MIPI_FREQ_1782M			1782000000
 #define MIPI_FREQ_1188M			1188000000
 #define MIPI_FREQ_891M			891000000
 #define MIPI_FREQ_446M			446000000
@@ -1283,7 +1284,7 @@ static const struct imx415_mode supported_modes[] = {
 		.global_reg_list = imx415_global_12bit_3864x2192_regs,
 		.reg_list = imx415_hdr3_12bit_3864x2192_1782M_regs,
 		.hdr_mode = HDR_X3,
-		.mipi_freq_idx = 3,
+		.mipi_freq_idx = 5,
 		.bpp = 12,
 		.vc[PAD0] = 2,
 		.vc[PAD1] = 1,//M->csi wr0
@@ -1540,6 +1541,7 @@ static const s64 link_freq_items[] = {
 	MIPI_FREQ_743M,
 	MIPI_FREQ_891M,
 	MIPI_FREQ_1188M,
+	MIPI_FREQ_1782M,
 	MIPI_FREQ_2079M,					//26-Nov-2025 2 Lane High Speed
 };
 
