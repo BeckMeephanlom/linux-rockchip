@@ -18,8 +18,8 @@
 			#address-cells = <1>;
 			#size-cells = <0>;
 
-			mipidphy0_in_ucam2: endpoint@2 {
-				reg = <2>;
+			mipidphy0_in_ucam0: endpoint@1 {
+				reg = <1>;
 				remote-endpoint = <&imx415_1_out1>;
 				data-lanes = <1 2 3 4>;
 			};
@@ -48,7 +48,7 @@
 		compatible = "sony,imx415";
 		reg = <0x37>;
 		//clocks = <&ext_cam_ov5647_clk>;
-		clocks = <&cru CLK_MIPI_CAMARAOUT_M1>;
+		clocks = <&cru CLK_MIPI_CAMARAOUT_M3>;
 		clock-names = "xvclk";
 		pinctrl-names = "default";
 		pinctrl-0 = <&mipim0_camera1_clk>;
@@ -62,7 +62,7 @@
 		rockchip,camera-module-lens-name = "default";
 		port {
 			imx415_1_out1: endpoint {
-				remote-endpoint = <&mipidphy0_in_ucam2>;
+				remote-endpoint = <&mipidphy0_in_ucam0>;
 				data-lanes = <1 2 3 4>;								//15Pin Supports only 2 Lanes
 			};
 		};
