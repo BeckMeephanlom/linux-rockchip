@@ -48,10 +48,10 @@
 		compatible = "sony,imx415";
 		reg = <0x37>;
 		//clocks = <&ext_cam_ov5647_clk>;
-		clocks = <&cru CLK_MIPI_CAMARAOUT_M1>;
-		clock-names = "xvclk";
-		pinctrl-names = "default";
-		pinctrl-0 = <&mipim0_camera1_clk>;
+		//clocks = <&cru CLK_MIPI_CAMARAOUT_M1>;
+		//clock-names = "xvclk";
+		//pinctrl-names = "default";
+		//pinctrl-0 = <&mipim0_camera1_clk>;
 		power-domains = <&power RK3588_PD_VI>;
 		pwdn-gpios = <&gpio1 RK_PD0 GPIO_ACTIVE_LOW>;				//IR CUT OFF ON
 		
@@ -63,7 +63,7 @@
 		port {
 			imx415_1_out1: endpoint {
 				remote-endpoint = <&mipidphy0_in_ucam0>;
-				data-lanes = <1 2 3 4>;								//15Pin Supports only 2 Lanes
+				data-lanes = <1 2 3 4>;								//15Pin Supports only 4 Lanes
 			};
 		};
 	};
