@@ -46,14 +46,14 @@
 	imx415_1: imx415-1@37 {
 		status = "okay";
 		compatible = "sony,imx415";
-		reg = <0x37>;
-		clocks = <&ext_cam_ov5647_clk>;
+        reg = <0x37>;
 		clocks = <&cru CLK_MIPI_CAMARAOUT_M1>;
 		clock-names = "xvclk";
 		pinctrl-names = "default";
 		pinctrl-0 = <&mipim0_camera1_clk>;
+   
 		power-domains = <&power RK3588_PD_VI>;
-		pwdn-gpios = <&gpio1 RK_PD0 GPIO_ACTIVE_LOW>;				//IR CUT OFF ON
+		pwdn-gpios = <&gpio1 RK_PD0 GPIO_ACTIVE_LOW>;										//#IR CUT OFF = ON = LOW
 		
 
 		rockchip,camera-module-index = <0>;
