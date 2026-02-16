@@ -64,9 +64,7 @@
 
 //Link Frequency
 #define MIPI_FREQ_594M    		594000000
-#define MIPI_FREQ_720M    		720000000
 #define MIPI_FREQ_891M    		891000000
-#define MIPI_FREQ_1440M  		1440000000
 #define MIPI_FREQ_1485M  		1485000000
 #define MIPI_FREQ_1782M  		1782000000
 #define MIPI_FREQ_2079M  		2079000000
@@ -75,8 +73,8 @@
 #define IMX415_4LANES			4
 #define IMX415_2LANES			2
 
-/*this is 50% prevent when pixel rate = link frequency * 2 * lanes / BITS_PER_SAMPLE */
-/*this is 100% prevent when pixel rate = link frequency  * lanes / BITS_PER_SAMPLE */
+
+/*pixel_rate = (link_freq / bpp) * 2 * lanes*/
 
 #define IMX415_MAX_PIXEL_RATE		(MIPI_FREQ_891M / 10 * 2 * IMX415_4LANES)
 #define OF_CAMERA_HDR_MODE		"rockchip,camera-hdr-mode"
@@ -461,22 +459,22 @@ static __maybe_unused const struct regval imx415_hdr3_12bit_3864x2192_1782M_regs
 };
 
 static __maybe_unused const struct regval imx415_global_10bit_3864x2192_regs[] = {
-	{0x3002, 0x00},
-	{0x3008, 0x7F},
-	{0x300A, 0x5B},
-	{0x3031, 0x00},
-	{0x3032, 0x00},
-	{0x30C1, 0x00},
-	{0x30D9, 0x06},
-	{0x3116, 0x24},
-	{0x311E, 0x24},
-	{0x32D4, 0x21},
-	{0x32EC, 0xA1},
-	{0x3452, 0x7F},
-	{0x3453, 0x03},
-	{0x358A, 0x04},
-	{0x35A1, 0x02},
-	{0x36BC, 0x0C},
+	{0x3002, 0x00},					//slave mode
+	{0x3008, 0x7F},					//BCWAIT_TIME default = ff = 37.125MHz
+	{0x300A, 0x5B},					//CPWAIT_TIME default = b6 = 37.125MHz		
+	{0x3031, 0x00},					//ADBIT default 01 = 12 bits
+	{0x3032, 0x00},					//MDBIT default 01 = 12 bits
+	{0x30C1, 0x00},					//XVS XHS pin setting  0 = Output
+	{0x30D9, 0x06},					//DIG_CLP_VSTART   6 = ALL PIXEL
+	{0x3116, 0x24},					//37.125MHz		
+	{0x311E, 0x24},					//37.125mHz
+	{0x32D4, 0x21},					//added register default register
+	{0x32EC, 0xA1},					//added register		
+	{0x3452, 0x7F},					//added
+	{0x3453, 0x03},					//added
+	{0x358A, 0x04},					//added			
+	{0x35A1, 0x02},					//added
+	{0x36BC, 0x0C},					//added
 	{0x36CC, 0x53},
 	{0x36CD, 0x00},
 	{0x36CE, 0x3C},
@@ -488,22 +486,22 @@ static __maybe_unused const struct regval imx415_global_10bit_3864x2192_regs[] =
 	{0x36D7, 0x00},
 	{0x36D8, 0x71},
 	{0x36DA, 0x8C},
-	{0x36DB, 0x00},
-	{0x3701, 0x00},
-	{0x3724, 0x02},
+	{0x36DB, 0x00},					//added
+	{0x3701, 0x00},					//added 0= 10 bits 03 = 12 bits
+	{0x3724, 0x02},					
 	{0x3726, 0x02},
 	{0x3732, 0x02},
 	{0x3734, 0x03},
 	{0x3736, 0x03},
-	{0x3742, 0x03},
+	{0x3742, 0x03},					//added
 	{0x3862, 0xE0},
 	{0x38CC, 0x30},
-	{0x38CD, 0x2F},
+	{0x38CD, 0x2F},					//added
 	{0x395C, 0x0C},
 	{0x3A42, 0xD1},
 	{0x3A4C, 0x77},
 	{0x3AE0, 0x02},
-	{0x3AEC, 0x0C},
+	{0x3AEC, 0x0C},					//added
 	{0x3B00, 0x2E},
 	{0x3B06, 0x29},
 	{0x3B98, 0x25},
@@ -535,17 +533,15 @@ static __maybe_unused const struct regval imx415_global_10bit_3864x2192_regs[] =
 	{0x3BB7, 0x03},
 	{0x3BB8, 0xE0},
 	{0x3BBA, 0xE0},
-	{0x3BBC, 0xDA},
+	{0x3BBC, 0xDA},					//added
 	{0x3BBE, 0x88},
 	{0x3BC0, 0x44},
 	{0x3BC2, 0x7B},
 	{0x3BC4, 0xA2},
 	{0x3BC8, 0xBD},
-	{0x3BCA, 0xBD},
-	{0x4004, 0x48},
-	{0x4005, 0x09},
-	{REG_NULL, 0x00},
-};
+	{0x3BCA, 0xBD},					//added
+	{0x4004, 0x48},					//TXCLKESC_FREQ   37.125MHz
+	{0x4005, 0x09},					//TXCLKESC_FREQ	  37.125MHz	
 
 static __maybe_unused const struct regval imx415_hdr3_10bit_3864x2192_1485M_regs[] = {
 	{0x3020, 0x00},
@@ -617,6 +613,7 @@ static __maybe_unused const struct regval imx415_hdr3_10bit_3864x2192_1782M_regs
 	{REG_NULL, 0x00},
 };
 
+
 static __maybe_unused const struct regval imx415_hdr2_10bit_3864x2192_1485M_regs[] = {
 	{0x3020, 0x00},
 	{0x3021, 0x00},
@@ -651,7 +648,53 @@ static __maybe_unused const struct regval imx415_hdr2_10bit_3864x2192_1485M_regs
 	{0x4074, 0x00},
 	{REG_NULL, 0x00},
 };
+//no hdr linear scan 60FPS
+static __maybe_unused const struct regval imx415_linear_10bit_3864x2192_2079M_regs[] = {
+	{0x3020, 0x00},			//HADD	page 59
+	{0x3021, 0x00},			//VADD
+	{0x3022, 0x00},			//ADD MODE
+	{0x3024, 0xCA},			//Vmax		
+	{0x3025, 0x08},			//Vmax
+	{0x3028, 0x26},			//Hmax *
+	{0x3029, 0x02},			//Hmax *
+	{0x302C, 0x00},	
+	{0x302D, 0x00},
+	{0x3033, 0x02},			//Syn Mode *
+	{0x3050, 0x08},			//Shutter 8 - max
+	{0x3051, 0x00},			//shutter
+	{0x3052, 0x00},			//shutter
+	{0x3054, 0x19},			
+	{0x3058, 0x3E},
+	{0x3060, 0x25},
+	{0x3064, 0x4a},
+	{0x30CF, 0x00},
+	{0x3118, 0xE0},			//INCKSEL3*	
+	{0x3119, 0x00},			//INCKSEL3	
+	{0x3260, 0x01},
+	{0x400C, 0x01},			//INCKSEL6*
+	{0x4018, 0xD7},			//TCLKPOST*
+	{0x4019, 0x00},			//TCLKPOST
+	{0x401A, 0x7F},			//TCLKPREPAR
+	{0x401B, 0x00},			//TCLKPREPAR
+	{0x401C, 0x7F},			//TCLKTRAIL
+	{0x401D, 0x00},			//TCLKTRAIL
+	{0x401E, 0x37},			//TCLKZERO
+	{0x401F, 0x02},			//TCLKZERO
+	{0x4020, 0x87},			//THSPREPARE
+	{0x4021, 0x00},			//THSPREPARE
+	{0x4022, 0xEF},			//THSZERO
+	{0x4023, 0x00},			//THSZERO
+	{0x4024, 0x87},			//THSTRAIL
+	{0x4025, 0x00},			//THSTRAIL
+	{0x4026, 0xDF},			//THSEXIT
+	{0x4027, 0x00},			//THSEXIT
+	{0x4028, 0x6F},			//TLPX	
+	{0x4029, 0x00},			//TLPX	
+	{0x4074, 0x00},			//INCKSEL7
+	{REG_NULL, 0x00},
+};
 
+//no hdr linear scan
 static __maybe_unused const struct regval imx415_linear_10bit_3864x2192_891M_regs[] = {
 	{0x3020, 0x00},
 	{0x3021, 0x00},
@@ -665,23 +708,32 @@ static __maybe_unused const struct regval imx415_linear_10bit_3864x2192_891M_reg
 	{0x3033, 0x05},
 	{0x3050, 0x08},
 	{0x3051, 0x00},
+	{0x3052, 0x00},			
 	{0x3054, 0x19},
 	{0x3058, 0x3E},
 	{0x3060, 0x25},
 	{0x3064, 0x4a},
 	{0x30CF, 0x00},
 	{0x3118, 0xC0},
+	{0x3119, 0x00},				
 	{0x3260, 0x01},
 	{0x400C, 0x00},
-	{0x4018, 0x7F},
+	{0x4018, 0x7F},	
+	{0x4019, 0x00},			
 	{0x401A, 0x37},
+	{0x401B, 0x00},			
 	{0x401C, 0x37},
+	{0x401D, 0x00},
 	{0x401E, 0xF7},
 	{0x401F, 0x00},
 	{0x4020, 0x3F},
+	{0x4021, 0x00},		
 	{0x4022, 0x6F},
+	{0x4023, 0x00},	
 	{0x4024, 0x3F},
+	{0x4025, 0x00},
 	{0x4026, 0x5F},
+	{0x4027, 0x00},	
 	{0x4028, 0x2F},
 	{0x4074, 0x01},
 	{REG_NULL, 0x00},
@@ -1096,12 +1148,14 @@ static const struct imx415_mode supported_modes[] = {
 			.denominator = 300000,
 		},
 		.exp_def = 0x08ca - 0x08,
-		.hts_def = 0x044c * IMX415_4LANES * 2,
+		//.hts_def = 0x044c * IMX415_4LANES * 2,        //891
+		.hts_def = 0x0226 * IMX415_4LANES * 2,		//2079
 		.vts_def = 0x08ca,
 		.global_reg_list = imx415_global_10bit_3864x2192_regs,
-		.reg_list = imx415_linear_10bit_3864x2192_891M_regs,
+		//.reg_list = imx415_linear_10bit_3864x2192_891M_regs,
+		.reg_list = imx415_linear_10bit_3864x2192_2079M_regs,
 		.hdr_mode = NO_HDR,
-		.mipi_freq_idx = 2,
+		.mipi_freq_idx = 4,
 		.bpp = 10,
 		.vc[PAD0] = 0,
 		.xvclk = IMX415_XVCLK_FREQ_37M,
@@ -1124,7 +1178,7 @@ static const struct imx415_mode supported_modes[] = {
 		.global_reg_list = imx415_global_10bit_3864x2192_regs,
 		.reg_list = imx415_hdr2_10bit_3864x2192_1485M_regs,
 		.hdr_mode = HDR_X2,
-		.mipi_freq_idx = 4,
+		.mipi_freq_idx = 2,
 		.bpp = 10,
 		.vc[PAD0] = 1,
 		.vc[PAD1] = 0,//L->csi wr0
@@ -1176,7 +1230,7 @@ static const struct imx415_mode supported_modes[] = {
 		.global_reg_list = imx415_global_10bit_3864x2192_regs,
 		.reg_list = imx415_hdr3_10bit_3864x2192_1782M_regs,
 		.hdr_mode = HDR_X3,
-		.mipi_freq_idx = 5,
+		.mipi_freq_idx = 3,
 		.bpp = 10,
 		.vc[PAD0] = 2,
 		.vc[PAD1] = 1,//M->csi wr0
@@ -1199,7 +1253,7 @@ static const struct imx415_mode supported_modes[] = {
 		.global_reg_list = imx415_global_12bit_3864x2192_regs,
 		.reg_list = imx415_linear_12bit_3864x2192_891M_regs,
 		.hdr_mode = NO_HDR,
-		.mipi_freq_idx = 2,
+		.mipi_freq_idx = 1,
 		.bpp = 12,
 		.vc[PAD0] = 0,
 		.xvclk = IMX415_XVCLK_FREQ_37M,
@@ -1222,7 +1276,7 @@ static const struct imx415_mode supported_modes[] = {
 		.global_reg_list = imx415_global_12bit_3864x2192_regs,
 		.reg_list = imx415_hdr2_12bit_3864x2192_1782M_regs,
 		.hdr_mode = HDR_X2,
-		.mipi_freq_idx = 5,
+		.mipi_freq_idx = 3,
 		.bpp = 12,
 		.vc[PAD0] = 1,
 		.vc[PAD1] = 0,//L->csi wr0
@@ -1248,7 +1302,7 @@ static const struct imx415_mode supported_modes[] = {
 		.global_reg_list = imx415_global_12bit_3864x2192_regs,
 		.reg_list = imx415_hdr3_12bit_3864x2192_1782M_regs,
 		.hdr_mode = HDR_X3,
-		.mipi_freq_idx = 5,
+		.mipi_freq_idx = 3,
 		.bpp = 12,
 		.vc[PAD0] = 2,
 		.vc[PAD1] = 1,//M->csi wr0
@@ -1293,7 +1347,7 @@ static const struct imx415_mode supported_modes[] = {
 		.global_reg_list = imx415_global_12bit_3864x2192_regs,
 		.reg_list = imx415_hdr2_12bit_1932x1096_891M_regs,
 		.hdr_mode = HDR_X2,
-		.mipi_freq_idx = 2,
+		.mipi_freq_idx = 1,
 		.bpp = 12,
 		.vc[PAD0] = 1,
 		.vc[PAD1] = 0,//L->csi wr0
@@ -1319,7 +1373,7 @@ static const struct imx415_mode supported_modes_2lane[] = {
 		.global_reg_list = NULL,
 		.reg_list = imx415_linear_12bit_3864x2192_891M_regs_2lane,
 		.hdr_mode = NO_HDR,
-		.mipi_freq_idx = 2,
+		.mipi_freq_idx = 1,
 		.bpp = 12,
 		.vc[PAD0] = 0,
 		.xvclk = IMX415_XVCLK_FREQ_27M,
@@ -1339,7 +1393,7 @@ static const struct imx415_mode supported_modes_2lane[] = {
 		.global_reg_list = NULL,
 		.reg_list = imx415_linear_12bit_1284x720_2376M_regs_2lane,
 		.hdr_mode = NO_HDR,
-		.mipi_freq_idx = 7,
+		.mipi_freq_idx = 5,
 		.bpp = 12,
 		.vc[PAD0] = 0,
 		.xvclk = IMX415_XVCLK_FREQ_27M,
@@ -1348,9 +1402,7 @@ static const struct imx415_mode supported_modes_2lane[] = {
 
 static const s64 link_freq_items[] = {
 	MIPI_FREQ_594M,
-	MIPI_FREQ_720M,
 	MIPI_FREQ_891M,
-	MIPI_FREQ_1440M,
 	MIPI_FREQ_1485M,
 	MIPI_FREQ_1782M,
 	MIPI_FREQ_2079M,
@@ -1525,11 +1577,8 @@ static int imx415_set_fmt(struct v4l2_subdev *sd,
 		__v4l2_ctrl_s_ctrl(imx415->vblank, vblank_def);
 		__v4l2_ctrl_s_ctrl(imx415->link_freq, mode->mipi_freq_idx);
 		
-		/*pixel_rate = (u32)link_freq_items[mode->mipi_freq_idx] /
-			mode->bpp * 2 * lanes;*/
+		pixel_rate = ((u64)link_freq_items[mode->mipi_freq_idx] /mode->bpp) * 2 * lanes;
 
-		/* pixel rate = lane_bit_rate * lanes / bits_per_pixel */
-		pixel_rate =(u64)link_freq_items[mode->mipi_freq_idx] *	lanes / mode->bpp;
 
 		__v4l2_ctrl_s_ctrl_int64(imx415->pixel_rate,
 					 pixel_rate);
@@ -2132,9 +2181,8 @@ static long imx415_ioctl(struct v4l2_subdev *sd, unsigned int cmd, void *arg)
 				1, h);
 			__v4l2_ctrl_s_ctrl(imx415->link_freq, mode->mipi_freq_idx);
 
-			/*pixel_rate = (u32)link_freq_items[mode->mipi_freq_idx] / mode->bpp * 2 * lanes;*/
-			/* pixel rate = lane_bit_rate * lanes / bits_per_pixel */
-			pixel_rate =(u64)link_freq_items[mode->mipi_freq_idx] * lanes / mode->bpp;
+			pixel_rate = ((u64)link_freq_items[mode->mipi_freq_idx] / mode->bpp) * 2 * lanes;
+
 			__v4l2_ctrl_s_ctrl_int64(imx415->pixel_rate,
 						 pixel_rate);
 			mutex_unlock(&imx415->mutex);
@@ -2862,15 +2910,9 @@ static int imx415_initialize_controls(struct imx415 *imx415)
 				link_freq_items);
 	v4l2_ctrl_s_ctrl(imx415->link_freq, mode->mipi_freq_idx);
 
-	/* pixel rate = link frequency * 2 * lanes / BITS_PER_SAMPLE */
-	/*
-	pixel_rate = (u32)link_freq_items[mode->mipi_freq_idx] / mode->bpp * 2 * lanes;
-	max_pixel_rate = MIPI_FREQ_1188M / mode->bpp * 2 * lanes;*/
 
-	/* new pixel rate = lane_bit_rate * lanes / bits_per_pixel */
-	pixel_rate =(u64)link_freq_items[mode->mipi_freq_idx] *	lanes / mode->bpp;
-
-	max_pixel_rate =(u64)MIPI_FREQ_2376M *lanes / mode->bpp;
+	pixel_rate = ((u64)link_freq_items[mode->mipi_freq_idx] / mode->bpp) * 2 * lanes;
+	max_pixel_rate = (MIPI_FREQ_2376M / mode->bpp) * 2 * lanes;
 
 	imx415->pixel_rate = v4l2_ctrl_new_std(handler, NULL,
 		V4L2_CID_PIXEL_RATE, 0, max_pixel_rate,
