@@ -62,14 +62,21 @@
 #define V4L2_CID_DIGITAL_GAIN		V4L2_CID_GAIN
 #endif
 
-#define MIPI_FREQ_1188M			1188000000
-#define MIPI_FREQ_891M			891000000
-#define MIPI_FREQ_446M			446000000
-#define MIPI_FREQ_743M			743000000
-#define MIPI_FREQ_297M			297000000
+//Link Frequency
+#define MIPI_FREQ_594M    		594000000
+#define MIPI_FREQ_720M    		720000000
+#define MIPI_FREQ_891M    		891000000
+#define MIPI_FREQ_1440M  		1440000000
+#define MIPI_FREQ_1485M  		1485000000
+#define MIPI_FREQ_1782M  		1782000000
+#define MIPI_FREQ_2079M  		2079000000
+#define MIPI_FREQ_2376M  		2376000000
 
 #define IMX415_4LANES			4
 #define IMX415_2LANES			2
+
+/*this is 50% prevent when pixel rate = link frequency * 2 * lanes / BITS_PER_SAMPLE */
+/*this is 100% prevent when pixel rate = link frequency  * lanes / BITS_PER_SAMPLE */
 
 #define IMX415_MAX_PIXEL_RATE		(MIPI_FREQ_891M / 10 * 2 * IMX415_4LANES)
 #define OF_CAMERA_HDR_MODE		"rockchip,camera-hdr-mode"
@@ -1094,7 +1101,7 @@ static const struct imx415_mode supported_modes[] = {
 		.global_reg_list = imx415_global_10bit_3864x2192_regs,
 		.reg_list = imx415_linear_10bit_3864x2192_891M_regs,
 		.hdr_mode = NO_HDR,
-		.mipi_freq_idx = 1,
+		.mipi_freq_idx = 2,
 		.bpp = 10,
 		.vc[PAD0] = 0,
 		.xvclk = IMX415_XVCLK_FREQ_37M,
@@ -1117,7 +1124,7 @@ static const struct imx415_mode supported_modes[] = {
 		.global_reg_list = imx415_global_10bit_3864x2192_regs,
 		.reg_list = imx415_hdr2_10bit_3864x2192_1485M_regs,
 		.hdr_mode = HDR_X2,
-		.mipi_freq_idx = 2,
+		.mipi_freq_idx = 4,
 		.bpp = 10,
 		.vc[PAD0] = 1,
 		.vc[PAD1] = 0,//L->csi wr0
@@ -1145,7 +1152,7 @@ static const struct imx415_mode supported_modes[] = {
 		.hdr_mode = HDR_X3,
 		.mipi_freq_idx = 2,
 		.bpp = 10,
-		.vc[PAD0] = 2,
+		.vc[PAD0] = 4,
 		.vc[PAD1] = 1,//M->csi wr0
 		.vc[PAD2] = 0,//L->csi wr0
 		.vc[PAD3] = 2,//S->csi wr2
@@ -1169,7 +1176,7 @@ static const struct imx415_mode supported_modes[] = {
 		.global_reg_list = imx415_global_10bit_3864x2192_regs,
 		.reg_list = imx415_hdr3_10bit_3864x2192_1782M_regs,
 		.hdr_mode = HDR_X3,
-		.mipi_freq_idx = 3,
+		.mipi_freq_idx = 5,
 		.bpp = 10,
 		.vc[PAD0] = 2,
 		.vc[PAD1] = 1,//M->csi wr0
@@ -1192,7 +1199,7 @@ static const struct imx415_mode supported_modes[] = {
 		.global_reg_list = imx415_global_12bit_3864x2192_regs,
 		.reg_list = imx415_linear_12bit_3864x2192_891M_regs,
 		.hdr_mode = NO_HDR,
-		.mipi_freq_idx = 1,
+		.mipi_freq_idx = 2,
 		.bpp = 12,
 		.vc[PAD0] = 0,
 		.xvclk = IMX415_XVCLK_FREQ_37M,
@@ -1215,7 +1222,7 @@ static const struct imx415_mode supported_modes[] = {
 		.global_reg_list = imx415_global_12bit_3864x2192_regs,
 		.reg_list = imx415_hdr2_12bit_3864x2192_1782M_regs,
 		.hdr_mode = HDR_X2,
-		.mipi_freq_idx = 3,
+		.mipi_freq_idx = 5,
 		.bpp = 12,
 		.vc[PAD0] = 1,
 		.vc[PAD1] = 0,//L->csi wr0
@@ -1241,7 +1248,7 @@ static const struct imx415_mode supported_modes[] = {
 		.global_reg_list = imx415_global_12bit_3864x2192_regs,
 		.reg_list = imx415_hdr3_12bit_3864x2192_1782M_regs,
 		.hdr_mode = HDR_X3,
-		.mipi_freq_idx = 3,
+		.mipi_freq_idx = 5,
 		.bpp = 12,
 		.vc[PAD0] = 2,
 		.vc[PAD1] = 1,//M->csi wr0
@@ -1286,7 +1293,7 @@ static const struct imx415_mode supported_modes[] = {
 		.global_reg_list = imx415_global_12bit_3864x2192_regs,
 		.reg_list = imx415_hdr2_12bit_1932x1096_891M_regs,
 		.hdr_mode = HDR_X2,
-		.mipi_freq_idx = 1,
+		.mipi_freq_idx = 2,
 		.bpp = 12,
 		.vc[PAD0] = 1,
 		.vc[PAD1] = 0,//L->csi wr0
@@ -1312,7 +1319,7 @@ static const struct imx415_mode supported_modes_2lane[] = {
 		.global_reg_list = NULL,
 		.reg_list = imx415_linear_12bit_3864x2192_891M_regs_2lane,
 		.hdr_mode = NO_HDR,
-		.mipi_freq_idx = 1,
+		.mipi_freq_idx = 2,
 		.bpp = 12,
 		.vc[PAD0] = 0,
 		.xvclk = IMX415_XVCLK_FREQ_27M,
@@ -1332,7 +1339,7 @@ static const struct imx415_mode supported_modes_2lane[] = {
 		.global_reg_list = NULL,
 		.reg_list = imx415_linear_12bit_1284x720_2376M_regs_2lane,
 		.hdr_mode = NO_HDR,
-		.mipi_freq_idx = 4,
+		.mipi_freq_idx = 7,
 		.bpp = 12,
 		.vc[PAD0] = 0,
 		.xvclk = IMX415_XVCLK_FREQ_27M,
@@ -1340,11 +1347,14 @@ static const struct imx415_mode supported_modes_2lane[] = {
 };
 
 static const s64 link_freq_items[] = {
-	MIPI_FREQ_297M,
-	MIPI_FREQ_446M,
-	MIPI_FREQ_743M,
+	MIPI_FREQ_594M,
+	MIPI_FREQ_720M,
 	MIPI_FREQ_891M,
-	MIPI_FREQ_1188M,
+	MIPI_FREQ_1440M,
+	MIPI_FREQ_1485M,
+	MIPI_FREQ_1782M,
+	MIPI_FREQ_2079M,
+	MIPI_FREQ_2376M,
 };
 
 /* Write registers up to 4 at a time */
@@ -1514,8 +1524,13 @@ static int imx415_set_fmt(struct v4l2_subdev *sd,
 					 1, vblank_def);
 		__v4l2_ctrl_s_ctrl(imx415->vblank, vblank_def);
 		__v4l2_ctrl_s_ctrl(imx415->link_freq, mode->mipi_freq_idx);
-		pixel_rate = (u32)link_freq_items[mode->mipi_freq_idx] /
-			mode->bpp * 2 * lanes;
+		
+		/*pixel_rate = (u32)link_freq_items[mode->mipi_freq_idx] /
+			mode->bpp * 2 * lanes;*/
+
+		/* pixel rate = lane_bit_rate * lanes / bits_per_pixel */
+		pixel_rate =(u64)link_freq_items[mode->mipi_freq_idx] *	lanes / mode->bpp;
+
 		__v4l2_ctrl_s_ctrl_int64(imx415->pixel_rate,
 					 pixel_rate);
 	}
@@ -2116,8 +2131,10 @@ static long imx415_ioctl(struct v4l2_subdev *sd, unsigned int cmd, void *arg)
 				IMX415_VTS_MAX - mode->height,
 				1, h);
 			__v4l2_ctrl_s_ctrl(imx415->link_freq, mode->mipi_freq_idx);
-			pixel_rate = (u32)link_freq_items[mode->mipi_freq_idx] /
-				mode->bpp * 2 * lanes;
+
+			/*pixel_rate = (u32)link_freq_items[mode->mipi_freq_idx] / mode->bpp * 2 * lanes;*/
+			/* pixel rate = lane_bit_rate * lanes / bits_per_pixel */
+			pixel_rate =(u64)link_freq_items[mode->mipi_freq_idx] * lanes / mode->bpp;
 			__v4l2_ctrl_s_ctrl_int64(imx415->pixel_rate,
 						 pixel_rate);
 			mutex_unlock(&imx415->mutex);
@@ -2846,8 +2863,15 @@ static int imx415_initialize_controls(struct imx415 *imx415)
 	v4l2_ctrl_s_ctrl(imx415->link_freq, mode->mipi_freq_idx);
 
 	/* pixel rate = link frequency * 2 * lanes / BITS_PER_SAMPLE */
+	/*
 	pixel_rate = (u32)link_freq_items[mode->mipi_freq_idx] / mode->bpp * 2 * lanes;
-	max_pixel_rate = MIPI_FREQ_1188M / mode->bpp * 2 * lanes;
+	max_pixel_rate = MIPI_FREQ_1188M / mode->bpp * 2 * lanes;*/
+
+	/* new pixel rate = lane_bit_rate * lanes / bits_per_pixel */
+	pixel_rate =(u64)link_freq_items[mode->mipi_freq_idx] *	lanes / mode->bpp;
+
+	max_pixel_rate =(u64)MIPI_FREQ_2376M *lanes / mode->bpp;
+
 	imx415->pixel_rate = v4l2_ctrl_new_std(handler, NULL,
 		V4L2_CID_PIXEL_RATE, 0, max_pixel_rate,
 		1, pixel_rate);
