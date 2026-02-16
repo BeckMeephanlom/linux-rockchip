@@ -76,7 +76,7 @@
 
 /*pixel_rate = (link_freq / bpp) * 2 * lanes*/
 
-#define IMX415_MAX_PIXEL_RATE		(MIPI_FREQ_891M / 10 * 2 * IMX415_4LANES)
+#define IMX415_MAX_PIXEL_RATE		((MIPI_FREQ_891M / 10) * 2 * IMX415_4LANES)
 #define OF_CAMERA_HDR_MODE		"rockchip,camera-hdr-mode"
 
 #define IMX415_XVCLK_FREQ_37M		37125000
@@ -541,7 +541,9 @@ static __maybe_unused const struct regval imx415_global_10bit_3864x2192_regs[] =
 	{0x3BC8, 0xBD},
 	{0x3BCA, 0xBD},					//added
 	{0x4004, 0x48},					//TXCLKESC_FREQ   37.125MHz
-	{0x4005, 0x09},					//TXCLKESC_FREQ	  37.125MHz	
+	{0x4005, 0x09},					//TXCLKESC_FREQ	  37.125MHz	  
+	{REG_NULL, 0x00},
+};
 
 static __maybe_unused const struct regval imx415_hdr3_10bit_3864x2192_1485M_regs[] = {
 	{0x3020, 0x00},
