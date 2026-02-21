@@ -347,17 +347,27 @@
 };
 
 &sdmmc {
-	max-frequency = <150000000>;
-	no-sdio;
-	no-mmc;
-	bus-width = <4>;
-	cap-mmc-highspeed;
-	cap-sd-highspeed;
-	disable-wp;
-	sd-uhs-sdr104;
-	vmmc-supply = <&vcc3v3_sys>;   /* ← FIX */
-	vqmmc-supply = <&vccio_sd_s0>;
-	status = "okay";	
+    pinctrl-names = "default";
+    pinctrl-0 = <
+        &sdmmc_clk
+        &sdmmc_cmd
+        &sdmmc_bus4
+        &sdmmc_det
+    >;
+
+    bus-width = <4>;
+    cap-sd-highspeed;
+    disable-wp;
+
+    no-sdio;
+    no-mmc;
+    no-1-8-v;
+
+    broken-cd;                 /* only if no detect pin */
+    vmmc-supply = <&vcc3v3_sys>;
+    vqmmc-supply = <&vcc3v3_sys>;
+
+    status = "okay";
 };
 
 &tsadc {
