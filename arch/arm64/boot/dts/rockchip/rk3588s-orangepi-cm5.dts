@@ -357,8 +357,7 @@
 	sd-uhs-sdr104;
 	vmmc-supply = <&vcc3v3_sys>;   /* ← FIX */
 	vqmmc-supply = <&vccio_sd_s0>;
-	status = "okay";
-	/delete-property/ vmmc-supply;
+	status = "okay";	
 };
 
 &tsadc {
