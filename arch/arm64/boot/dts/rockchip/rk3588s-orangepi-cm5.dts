@@ -363,7 +363,7 @@
     no-mmc;
     no-1-8-v;
 
-    broken-cd;                 /* only if no detect pin */
+    cd-gpios = <&gpio0 RK_PA4 GPIO_ACTIVE_LOW>;
     vmmc-supply = <&vcc3v3_sys>;
     vqmmc-supply = <&vcc3v3_sys>;
 
