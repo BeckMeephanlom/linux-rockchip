@@ -3066,12 +3066,20 @@ static int imx415_probe(struct i2c_client *client,
 	dev_info(dev, "detect imx415 lane %d\n",
 		imx415->bus_cfg.bus.mipi_csi2.num_data_lanes);
 
-	for (i = 0; i < imx415->cfg_num; i++) {
-		if (hdr_mode == imx415->supported_modes[i].hdr_mode) {
-			imx415->cur_mode = &imx415->supported_modes[i];
-			break;
-		}
-	}
+
+for (i = 0; i < imx415->cfg_num; i++) {
+    if (hdr_mode == imx415->supported_modes[i].hdr_mode) {
+        imx415->cur_mode = &imx415->supported_modes[i];
+        break;
+    }
+}
+
+if (!imx415->cur_mode) {
+    dev_warn(dev, "No HDR mode found, fallback to mode 0\n");
+    imx415->cur_mode = &imx415->supported_modes[0];
+}
+
+	
 
 	of_property_read_u32(node, RKMODULE_CAMERA_FASTBOOT_ENABLE,
 		&imx415->is_thunderboot);
