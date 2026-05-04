@@ -58,7 +58,7 @@
 
 	    /* ✅ ADD IR CUT CONTROL HERE */
 	    ircut-gpios = <&gpio1 RK_PB6 GPIO_ACTIVE_HIGH>;
-
+    	rockchip,camera-hdr-mode = <1>;
 		rockchip,camera-module-index = <0>;
 		rockchip,camera-module-facing = "back";
 		rockchip,camera-module-name = "WaveShare-IMX415";
