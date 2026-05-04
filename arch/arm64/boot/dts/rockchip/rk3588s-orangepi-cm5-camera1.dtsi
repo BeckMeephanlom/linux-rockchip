@@ -53,11 +53,9 @@
 		pinctrl-0 = <&mipim0_camera1_clk>;
    
 		power-domains = <&power RK3588_PD_VI>;
-		pwdn-gpios = <&gpio1 RK_PD0 GPIO_ACTIVE_LOW>;										//#Power LED INPUT
+		pwdn-gpios = <&gpio1 RK_PD0 GPIO_ACTIVE_LOW>;										//Power LED INPUT
 
 
-	    /* ✅ ADD IR CUT CONTROL HERE */
-	    ircut-gpios = <&gpio1 RK_PB6 GPIO_ACTIVE_HIGH>;
     	rockchip,camera-hdr-mode = <1>;
 		rockchip,camera-module-index = <0>;
 		rockchip,camera-module-facing = "back";
