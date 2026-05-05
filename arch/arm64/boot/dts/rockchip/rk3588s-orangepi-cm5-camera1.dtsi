@@ -56,7 +56,7 @@
 		pwdn-gpios = <&gpio1 RK_PD0 GPIO_ACTIVE_LOW>;										//Power LED INPUT
 
 
-    	rockchip,camera-hdr-mode = <1>;
+    	//rockchip,camera-hdr-mode = <1>;
 		rockchip,camera-module-index = <0>;
 		rockchip,camera-module-facing = "back";
 		rockchip,camera-module-name = "WaveShare-IMX415";
